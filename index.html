@@ -87,28 +87,17 @@
   /* 운동 그리드 */
   .exercise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 12px 12px; }
 
-  /* 드래그 */
   .ex-item {
     background: #18181e; border-radius: 10px; padding: 16px 14px 14px;
     border: 1.5px solid transparent;
     transition: background 0.12s, border-color 0.12s, transform 0.08s, opacity 0.2s;
-    user-select: none; position: relative;
-    cursor: pointer;
+    user-select: none; position: relative; cursor: pointer;
   }
   .ex-item:hover { background: #1d1d26; }
   .ex-item:active { transform: scale(0.97); }
   .ex-item.done { opacity: 0.5; }
-  .ex-item.dragging { opacity: 0.4; border-color: #3a3a4a; }
-  .ex-item.drag-over { border-color: #555; background: #202028; }
 
-  .ex-drag-handle {
-    position: absolute; top: 8px; left: 8px;
-    font-size: 11px; color: #2a2a36; cursor: grab;
-    line-height: 1; letter-spacing: -1px;
-  }
-  .ex-drag-handle:active { cursor: grabbing; }
-
-  .ex-name { font-size: 15px; font-weight: 700; color: #d8d8d8; margin-bottom: 5px; padding: 0 16px 0 18px; line-height: 1.4; }
+  .ex-name { font-size: 15px; font-weight: 700; color: #d8d8d8; margin-bottom: 5px; padding-right: 16px; line-height: 1.4; }
   .ex-desc { font-size: 11px; color: #666; line-height: 1.55; padding-left: 1px; }
 
   /* 무게 입력 */
@@ -126,7 +115,9 @@
     font-size: 12px; font-weight: 700; color: #d0d0d0;
     font-family: inherit; text-align: right;
   }
-  .ex-weight-input::placeholder { color: #333; }
+  .ex-weight-input::-webkit-outer-spin-button,
+  .ex-weight-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .ex-weight-input { -moz-appearance: textfield; }
   .ex-weight-unit { font-size: 11px; color: #555; flex-shrink: 0; }
 
   .ex-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; cursor: pointer; }
@@ -231,10 +222,10 @@
         <div class="card-prog-label" id="cpl-mon">0 / 16 세트</div>
       </div>
       <div class="exercise-grid" id="grid-mon">
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 프레스</div><div class="ex-desc">누워서 덤벨을 위로 밀어올림. 대흉근 전체 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 클로즈 그립 프레스</div><div class="ex-desc">덤벨을 좁게 모아 프레스. 가슴 안쪽·삼두 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 플라이</div><div class="ex-desc">양팔을 넓게 벌렸다 모음. 대흉근 스트레칭·확장.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 리버스 그립 프레스</div><div class="ex-desc">역그립으로 프레스. 가슴 상부·전면 삼각근 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 프레스</div><div class="ex-desc">누워서 덤벨을 위로 밀어올림. 대흉근 전체 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 클로즈 그립 프레스</div><div class="ex-desc">덤벨을 좁게 모아 프레스. 가슴 안쪽·삼두 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 플라이</div><div class="ex-desc">양팔을 넓게 벌렸다 모음. 대흉근 스트레칭·확장.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 리버스 그립 프레스</div><div class="ex-desc">역그립으로 프레스. 가슴 상부·전면 삼각근 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
       </div>
       <button class="reset-btn" onclick="resetCard(this)">↺ 전체 초기화</button>
     </div>
@@ -255,10 +246,10 @@
         <div class="card-prog-label" id="cpl-tue">0 / 16 세트</div>
       </div>
       <div class="exercise-grid" id="grid-tue">
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 데드리프트</div><div class="ex-desc">바닥에서 들어올림. 척추기립근·햄스트링·둔근.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 로우</div><div class="ex-desc">덤벨을 복부로 당김. 광배근·승모근 전체 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 리버스 그립 로우</div><div class="ex-desc">역그립으로 당김. 광배근 하부·이두 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 익스텐션</div><div class="ex-desc">상체를 뒤로 젖힘. 척추기립근(허리) 집중 강화.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 데드리프트</div><div class="ex-desc">바닥에서 들어올림. 척추기립근·햄스트링·둔근.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 로우</div><div class="ex-desc">덤벨을 복부로 당김. 광배근·승모근 전체 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 리버스 그립 로우</div><div class="ex-desc">역그립으로 당김. 광배근 하부·이두 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 익스텐션</div><div class="ex-desc">상체를 뒤로 젖힘. 척추기립근(허리) 집중 강화.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
       </div>
       <button class="reset-btn" onclick="resetCard(this)">↺ 전체 초기화</button>
     </div>
@@ -279,10 +270,10 @@
         <div class="card-prog-label" id="cpl-wed">0 / 16 세트</div>
       </div>
       <div class="exercise-grid" id="grid-wed">
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 사이드 레터럴 레이즈</div><div class="ex-desc">양팔을 옆으로 들어올림. 측면 삼각근 집중.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 숄더 프레스</div><div class="ex-desc">머리 위로 밀어올림. 삼각근 전체·승모근.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 클로즈 프레스</div><div class="ex-desc">좁게 모아 프레스. 전면 삼각근·삼두 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 벤트오버 로우</div><div class="ex-desc">숙여서 당김. 후면 삼각근·등 상부 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 사이드 레터럴 레이즈</div><div class="ex-desc">양팔을 옆으로 들어올림. 측면 삼각근 집중.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 숄더 프레스</div><div class="ex-desc">머리 위로 밀어올림. 삼각근 전체·승모근.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 클로즈 프레스</div><div class="ex-desc">좁게 모아 프레스. 전면 삼각근·삼두 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 벤트오버 로우</div><div class="ex-desc">숙여서 당김. 후면 삼각근·등 상부 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
       </div>
       <button class="reset-btn" onclick="resetCard(this)">↺ 전체 초기화</button>
     </div>
@@ -303,10 +294,10 @@
         <div class="card-prog-label" id="cpl-thu">0 / 16 세트</div>
       </div>
       <div class="exercise-grid" id="grid-thu">
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 컬</div><div class="ex-desc">팔꿈치 고정 후 말아올림. 이두근 기본 운동.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 해머 컬</div><div class="ex-desc">세워서 컬. 이두 외측·전완근 함께 발달.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">고블렛 덤벨 컬</div><div class="ex-desc">양손으로 잡고 컬. 이두근 집중 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 오버헤드 익스텐션</div><div class="ex-desc">머리 위에서 팔꿈치 굽혔다 폄. 삼두 집중.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 컬</div><div class="ex-desc">팔꿈치 고정 후 말아올림. 이두근 기본 운동.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 해머 컬</div><div class="ex-desc">세워서 컬. 이두 외측·전완근 함께 발달.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">고블렛 덤벨 컬</div><div class="ex-desc">양손으로 잡고 컬. 이두근 집중 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 오버헤드 익스텐션</div><div class="ex-desc">머리 위에서 팔꿈치 굽혔다 폄. 삼두 집중.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
       </div>
       <button class="reset-btn" onclick="resetCard(this)">↺ 전체 초기화</button>
     </div>
@@ -327,10 +318,10 @@
         <div class="card-prog-label" id="cpl-fri">0 / 16 세트</div>
       </div>
       <div class="exercise-grid" id="grid-fri">
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 고블렛 스쿼트</div><div class="ex-desc">가슴 앞에 덤벨 들고 스쿼트. 대퇴사두 집중.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 와이드 스쿼트</div><div class="ex-desc">발 넓게 벌리고 수행. 내전근·둔근 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 스티프 데드리프트</div><div class="ex-desc">무릎 거의 안 굽히고 숙임. 햄스트링·둔근.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
-        <div class="ex-item" draggable="true" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-drag-handle">⠿</div><div class="ex-name">덤벨 런지</div><div class="ex-desc">한 발 앞으로 내딛어 굽힘. 대퇴사두·둔근·밸런스.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 고블렛 스쿼트</div><div class="ex-desc">가슴 앞에 덤벨 들고 스쿼트. 대퇴사두 집중.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 와이드 스쿼트</div><div class="ex-desc">발 넓게 벌리고 수행. 내전근·둔근 자극.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 스티프 데드리프트</div><div class="ex-desc">무릎 거의 안 굽히고 숙임. 햄스트링·둔근.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
+        <div class="ex-item" onclick="nextSet(this)"><span class="done-check">✓</span><div class="ex-name">덤벨 런지</div><div class="ex-desc">한 발 앞으로 내딛어 굽힘. 대퇴사두·둔근·밸런스.</div><div class="ex-weight-row"><span class="ex-weight-label">무게</span><input class="ex-weight-input" type="number" placeholder="0" min="0" step="0.5"><span class="ex-weight-unit">kg</span></div><div class="ex-footer"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div style="display:flex;align-items:center;gap:8px"><span class="ex-reps">12회</span><span class="ex-label">0 / 4세트</span></div></div></div>
       </div>
       <button class="reset-btn" onclick="resetCard(this)">↺ 전체 초기화</button>
     </div>
@@ -440,10 +431,6 @@
     input.addEventListener('touchend', e => e.stopPropagation());
   });
 
-  // 드래그 핸들 클릭 차단
-  document.querySelectorAll('.ex-drag-handle').forEach(handle => {
-    handle.addEventListener('click', e => e.stopPropagation());
-  });
 
   // ── 전체 운동 타이머 ──
   // 타이머 길게 누르기 감지
@@ -622,41 +609,6 @@
 
   document.getElementById('modal').addEventListener('click',e=>{
     if(e.target===document.getElementById('modal'))closeModal();
-  });
-
-  // ── 드래그 앤 드롭 ──
-  let dragSrc = null;
-  document.querySelectorAll('.exercise-grid').forEach(grid => {
-    grid.addEventListener('dragstart', e => {
-      const item = e.target.closest('.ex-item');
-      if (!item) return;
-      dragSrc = item;
-      setTimeout(()=>item.classList.add('dragging'),0);
-    });
-    grid.addEventListener('dragend', e => {
-      const item = e.target.closest('.ex-item');
-      if (item) item.classList.remove('dragging');
-      grid.querySelectorAll('.ex-item').forEach(i=>i.classList.remove('drag-over'));
-      dragSrc = null;
-    });
-    grid.addEventListener('dragover', e => {
-      e.preventDefault();
-      const item = e.target.closest('.ex-item');
-      if (!item || item===dragSrc) return;
-      grid.querySelectorAll('.ex-item').forEach(i=>i.classList.remove('drag-over'));
-      item.classList.add('drag-over');
-    });
-    grid.addEventListener('drop', e => {
-      e.preventDefault();
-      const item = e.target.closest('.ex-item');
-      if (!item || item===dragSrc || !dragSrc) return;
-      item.classList.remove('drag-over');
-      const allItems = [...grid.querySelectorAll('.ex-item')];
-      const fromIdx = allItems.indexOf(dragSrc);
-      const toIdx = allItems.indexOf(item);
-      if (fromIdx < toIdx) grid.insertBefore(dragSrc, item.nextSibling);
-      else grid.insertBefore(dragSrc, item);
-    });
   });
 
   // ── 시작 오버레이 ──
