@@ -560,12 +560,30 @@
     g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+d);
     o.start();o.stop(ctx.currentTime+d);
   }
-  function playTick(){beep(600,0.12,0.25);}
-  function playDone(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,0.25,0.3),i*130));}
+  function playTick(){beep(600,0.18,1.0);}
+  function playDone(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,0.35,1.0),i*130));}
+
+  // ── Wake Lock ──
+  let wakeLock = null;
+  async function requestWakeLock() {
+    try {
+      if ('wakeLock' in navigator) {
+        wakeLock = await navigator.wakeLock.request('screen');
+      }
+    } catch(e) {}
+  }
+  function releaseWakeLock() {
+    if (wakeLock) { wakeLock.release(); wakeLock = null; }
+  }
+  // 탭 전환 시 wake lock 재요청
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && timerInt) requestWakeLock();
+  });
 
   // ── 모달 ──
   function openModal(name,setNum,total,rest,color,allDone) {
     clearInterval(timerInt);
+    requestWakeLock();
     document.getElementById('mName').textContent = name;
     document.getElementById('mSet').textContent = allDone?'마지막 세트 완료!':setNum+'세트 완료!';
     document.getElementById('mComplete').style.display = allDone?'block':'none';
@@ -593,6 +611,7 @@
 
   function closeModal(){
     clearInterval(timerInt);
+    releaseWakeLock();
     document.getElementById('modal').classList.remove('active');
   }
 
