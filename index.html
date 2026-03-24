@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,55 +7,109 @@
 <style>
   @import url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css');
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Paperlogy', -apple-system, sans-serif; background: #0c0c0e; color: #e0e0e0; min-height: 100vh; }
+
+  /* ── 테마 변수 ── */
+  :root, [data-theme="light"] {
+    --bg: #f4f4f6;
+    --bg2: #ffffff;
+    --bg3: #ebebed;
+    --card: #ffffff;
+    --card2: #f4f4f6;
+    --card3: #eaeaec;
+    --border: #e0e0e4;
+    --border2: #d0d0d4;
+    --text1: #111111;
+    --text2: #444444;
+    --text3: #888888;
+    --text4: #aaaaaa;
+    --header-bg: #f4f4f6;
+    --divider: #e4e4e8;
+    --input-bg: #f0f0f2;
+    --reset-color: #aaaaaa;
+    --toggle-bg: #e0e0e4;
+    --toggle-icon: '🌙';
+  }
+
+  [data-theme="dark"] {
+    --bg: #0c0c0e;
+    --bg2: #14141a;
+    --bg3: #1c1c22;
+    --card: #14141a;
+    --card2: #18181e;
+    --card3: #1e1e26;
+    --border: #1e1e26;
+    --border2: #2a2a32;
+    --text1: #f0f0f0;
+    --text2: #d0d0d0;
+    --text3: #666666;
+    --text4: #444444;
+    --header-bg: #0c0c0e;
+    --divider: #181820;
+    --input-bg: #121218;
+    --reset-color: #444444;
+    --toggle-bg: #26262e;
+    --toggle-icon: '☀️';
+  }
+
+  body { font-family: 'Paperlogy', -apple-system, sans-serif; background: var(--bg); color: var(--text1); min-height: 100vh; transition: background 0.3s, color 0.3s; }
 
   /* ── 헤더 ── */
-  .header { position: sticky; top: 0; z-index: 50; background: #0c0c0e; padding: 20px 20px 16px; }
+  .header { position: sticky; top: 0; z-index: 50; background: var(--header-bg); padding: 20px 20px 16px; transition: background 0.3s; }
   .header-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
-  .header-title { font-size: 19px; font-weight: 700; color: #f0f0f0; }
-  .header-date { font-size: 11px; color: #444; margin-top: 4px; }
+  .header-title { font-size: 19px; font-weight: 700; color: var(--text1); }
+  .header-date { font-size: 11px; color: var(--text4); margin-top: 4px; }
 
   .header-right { display: flex; align-items: center; gap: 8px; }
+
+  /* 테마 토글 */
+  .theme-toggle {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--toggle-bg); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 16px; transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { background: var(--card3); }
 
   /* 전체 운동 타이머 */
   .workout-timer {
     display: flex; align-items: center; gap: 6px;
-    background: #18181e; border: 1px solid #26262e;
+    background: var(--card2); border: 1px solid var(--border);
     border-radius: 10px; padding: 6px 12px; cursor: pointer;
     transition: background 0.15s;
   }
-  .workout-timer:hover { background: #1e1e26; }
-  .workout-timer.running { border-color: #3aaa80; }
-  .timer-dot { width: 7px; height: 7px; border-radius: 50%; background: #444; }
-  .workout-timer.running .timer-dot { background: #3aaa80; animation: pulse 1s infinite; }
+  .workout-timer:hover { background: var(--card3); }
+  .workout-timer.running { border-color: #1D9E75; }
+  .timer-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text4); }
+  .workout-timer.running .timer-dot { background: #1D9E75; animation: pulse 1s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .timer-val { font-size: 14px; font-weight: 700; color: #888; font-variant-numeric: tabular-nums; }
-  .workout-timer.running .timer-val { color: #3aaa80; }
+  .timer-val { font-size: 14px; font-weight: 700; color: var(--text3); font-variant-numeric: tabular-nums; }
+  .workout-timer.running .timer-val { color: #1D9E75; }
 
   /* 이번주 뱃지 */
-  .week-badge { background: #18181e; border: 1px solid #26262e; border-radius: 10px; padding: 6px 12px; text-align: center; flex-shrink: 0; }
-  .week-badge-num { font-size: 16px; font-weight: 700; color: #e0e0e0; line-height: 1; }
-  .week-badge-label { font-size: 10px; color: #444; margin-top: 3px; }
+  .week-badge { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 6px 12px; text-align: center; flex-shrink: 0; }
+  .week-badge-num { font-size: 16px; font-weight: 700; color: var(--text1); line-height: 1; }
+  .week-badge-label { font-size: 10px; color: var(--text4); margin-top: 3px; }
 
   /* 진행률 */
   .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .progress-bar { flex: 1; height: 3px; background: #1c1c20; border-radius: 3px; overflow: hidden; }
+  .progress-bar { flex: 1; height: 3px; background: var(--border); border-radius: 3px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 3px; width: 0%; transition: width 0.4s ease; }
-  .progress-pct { font-size: 12px; font-weight: 700; color: #888; min-width: 32px; text-align: right; }
+  .progress-pct { font-size: 12px; font-weight: 700; color: var(--text3); min-width: 32px; text-align: right; }
 
   /* 탭 */
   .tabs { display: flex; gap: 6px; }
-  .tab { flex: 1; text-align: center; padding: 9px 0; border-radius: 8px; font-size: 13px; font-weight: 700; color: #555; background: #141418; border: 1px solid #1e1e24; cursor: pointer; transition: all 0.15s; user-select: none; }
-  .tab:hover { color: #888; }
+  .tab { flex: 1; text-align: center; padding: 9px 0; border-radius: 8px; font-size: 13px; font-weight: 700; color: var(--text3); background: var(--card2); border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; user-select: none; }
+  .tab:hover { color: var(--text2); }
   .tab.active { border-color: transparent; color: #ffffff; }
-  .tab.mon.active { background: #1a3a5c; }
-  .tab.tue.active { background: #0e3d2a; }
-  .tab.wed.active { background: #26204a; }
-  .tab.thu.active { background: #3a2800; }
-  .tab.fri.active { background: #3a1010; }
+  .tab.mon.active { background: #2a7dd4; }
+  .tab.tue.active { background: #1a9e6a; }
+  .tab.wed.active { background: #6b62d4; }
+  .tab.thu.active { background: #d48c1a; }
+  .tab.fri.active { background: #c0302e; }
   .tab.done-tab::after { content: ' ✓'; font-size: 10px; }
 
-  .header-divider { height: 1px; background: #181820; }
+  .header-divider { height: 1px; background: var(--divider); }
 
   /* ── 컨텐츠 ── */
   .content { padding: 16px 20px 48px; }
@@ -63,103 +117,101 @@
   .day-section.active { display: flex; flex-direction: column; gap: 12px; }
 
   /* 참고 링크 */
-  .ref-link { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #14141a; border: 1px solid #1e1e26; border-radius: 10px; text-decoration: none; font-size: 12px; color: #555; transition: background 0.15s; }
-  .ref-link:hover { background: #18181e; color: #888; }
+  .ref-link { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; font-size: 12px; color: var(--text3); transition: background 0.15s; }
+  .ref-link:hover { background: var(--card2); color: var(--text2); }
   .ref-yt { width: 16px; height: 16px; background: #c0302e; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .ref-yt::after { content: '▶'; font-size: 7px; color: #fff; margin-left: 1px; }
   .ref-text { flex: 1; }
-  .ref-arrow { color: #444; font-size: 12px; }
+  .ref-arrow { color: var(--text4); font-size: 12px; }
 
   /* 카드 */
-  .day-card { background: #14141a; border: 1px solid #1e1e26; border-radius: 14px; overflow: hidden; }
-  .card-head { display: flex; align-items: center; gap: 10px; padding: 15px 16px 13px; border-bottom: 1px solid #1a1a22; }
+  .day-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: background 0.3s, border-color 0.3s; }
+  .card-head { display: flex; align-items: center; gap: 10px; padding: 15px 16px 13px; border-bottom: 1px solid var(--border); }
   .day-chip { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
   .card-title { font-size: 15px; font-weight: 700; flex: 1; }
   .rest-pill { display: flex; align-items: center; gap: 5px; }
-  .rest-pill-label { font-size: 11px; color: #666; }
+  .rest-pill-label { font-size: 11px; color: var(--text3); }
   .rest-pill-val { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
 
   .card-prog-wrap { padding: 11px 16px 0; }
-  .card-prog-bar { height: 2px; background: #22222a; border-radius: 2px; overflow: hidden; }
+  .card-prog-bar { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .card-prog-fill { height: 100%; border-radius: 2px; width: 0%; transition: width 0.4s; }
-  .card-prog-label { font-size: 11px; color: #555; margin-top: 5px; text-align: right; }
+  .card-prog-label { font-size: 11px; color: var(--text3); margin-top: 5px; text-align: right; }
 
   /* 운동 그리드 */
   .exercise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 12px 12px; }
-
   .ex-item {
-    background: #18181e; border-radius: 10px; padding: 16px 14px 14px;
-    border: 1.5px solid transparent;
-    transition: background 0.12s, border-color 0.12s, transform 0.08s, opacity 0.2s;
-    user-select: none; position: relative; cursor: pointer;
+    background: var(--card2); border-radius: 10px; padding: 16px 14px 14px;
+    border: 1.5px solid transparent; cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, transform 0.08s;
+    user-select: none; position: relative;
   }
-  .ex-item:hover { background: #1d1d26; }
+  .ex-item:hover { background: var(--card3); }
   .ex-item:active { transform: scale(0.97); }
   .ex-item.done { opacity: 0.5; }
 
-  .ex-name { font-size: 15px; font-weight: 700; color: #d8d8d8; margin-bottom: 5px; padding-right: 16px; line-height: 1.4; }
-  .ex-desc { font-size: 11px; color: #666; line-height: 1.55; padding-left: 1px; }
+  .ex-name { font-size: 15px; font-weight: 700; color: var(--text1); margin-bottom: 5px; padding-right: 16px; line-height: 1.4; }
+  .ex-desc { font-size: 11px; color: var(--text3); line-height: 1.55; }
 
   /* 무게 입력 */
-  .ex-weight-row {
-    display: flex; align-items: center; gap: 5px;
-    margin-top: 10px; padding: 5px 8px;
-    background: #121218; border-radius: 6px;
-    border: 1px solid #22222a;
-    margin-left: auto; width: fit-content;
-  }
-  .ex-weight-label { font-size: 10px; color: #555; flex-shrink: 0; }
-  .ex-weight-input {
-    width: 60px; flex-shrink: 0;
-    background: none; border: none; outline: none;
-    font-size: 12px; font-weight: 700; color: #d0d0d0;
-    font-family: inherit; text-align: right;
-  }
+  .ex-weight-row { display: flex; align-items: center; gap: 5px; margin-top: 10px; padding: 5px 8px; background: var(--input-bg); border-radius: 6px; border: 1px solid var(--border); margin-left: auto; width: fit-content; }
+  .ex-weight-label { font-size: 10px; color: var(--text3); flex-shrink: 0; }
+  .ex-weight-input { width: 60px; flex-shrink: 0; background: none; border: none; outline: none; font-size: 12px; font-weight: 700; color: var(--text1); font-family: inherit; text-align: right; }
+  .ex-weight-input::placeholder { color: var(--text4); }
   .ex-weight-input::-webkit-outer-spin-button,
   .ex-weight-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .ex-weight-input { -moz-appearance: textfield; }
-  .ex-weight-unit { font-size: 11px; color: #555; flex-shrink: 0; }
+  .ex-weight-unit { font-size: 11px; color: var(--text3); flex-shrink: 0; }
 
-  .ex-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; cursor: pointer; }
+  .ex-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
   .dots { display: flex; gap: 5px; }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: #32323e; transition: background 0.18s; }
-  .ex-reps { font-size: 11px; font-weight: 700; color: #666; }
-  .ex-label { font-size: 11px; font-weight: 700; color: #555; transition: color 0.2s; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border2); transition: background 0.18s; }
+  .ex-reps { font-size: 11px; font-weight: 700; color: var(--text3); }
+  .ex-label { font-size: 11px; font-weight: 700; color: var(--text3); transition: color 0.2s; }
 
   .done-check { display: none; position: absolute; top: 10px; right: 11px; font-size: 11px; font-weight: 700; }
   .ex-item.done .done-check { display: block; }
 
-  .reset-btn { display: block; width: 100%; padding: 11px; background: none; border: none; border-top: 1px solid #1a1a22; font-size: 12px; color: #444; font-family: inherit; cursor: pointer; transition: color 0.15s; }
-  .reset-btn:hover { color: #777; }
+  .reset-btn { display: block; width: 100%; padding: 11px; background: none; border: none; border-top: 1px solid var(--border); font-size: 12px; color: var(--reset-color); font-family: inherit; cursor: pointer; transition: color 0.15s; }
+  .reset-btn:hover { color: var(--text2); }
 
   /* ── 컬러 테마 ── */
-  .mon .day-chip{background:#0c1e30;color:#4e96d8;} .mon .card-title{color:#4e96d8;} .mon .rest-pill-val{background:#0c1e30;color:#4e96d8;} .mon .card-prog-fill{background:#378ADD;} .mon .dot.filled{background:#378ADD;} .mon .ex-item.done{background:#0d1820;border-color:#162840;} .mon .ex-item.done .ex-label{color:#4e96d8;} .mon .done-check{color:#378ADD;}
-  .tue .day-chip{background:#0a1e16;color:#3aaa80;} .tue .card-title{color:#3aaa80;} .tue .rest-pill-val{background:#0a1e16;color:#3aaa80;} .tue .card-prog-fill{background:#1D9E75;} .tue .dot.filled{background:#1D9E75;} .tue .ex-item.done{background:#0c1a14;border-color:#143428;} .tue .ex-item.done .ex-label{color:#3aaa80;} .tue .done-check{color:#1D9E75;}
-  .wed .day-chip{background:#141230;color:#8c84e0;} .wed .card-title{color:#8c84e0;} .wed .rest-pill-val{background:#141230;color:#8c84e0;} .wed .card-prog-fill{background:#7F77DD;} .wed .dot.filled{background:#7F77DD;} .wed .ex-item.done{background:#121028;border-color:#201e48;} .wed .ex-item.done .ex-label{color:#8c84e0;} .wed .done-check{color:#7F77DD;}
-  .thu .day-chip{background:#201600;color:#d99524;} .thu .card-title{color:#d99524;} .thu .rest-pill-val{background:#201600;color:#d99524;} .thu .card-prog-fill{background:#EF9F27;} .thu .dot.filled{background:#EF9F27;} .thu .ex-item.done{background:#1a1200;border-color:#362600;} .thu .ex-item.done .ex-label{color:#d99524;} .thu .done-check{color:#EF9F27;}
-  .fri .day-chip{background:#200c0c;color:#d44f4f;} .fri .card-title{color:#d44f4f;} .fri .rest-pill-val{background:#200c0c;color:#d44f4f;} .fri .card-prog-fill{background:#E24B4A;} .fri .dot.filled{background:#E24B4A;} .fri .ex-item.done{background:#1a0c0c;border-color:#341414;} .fri .ex-item.done .ex-label{color:#d44f4f;} .fri .done-check{color:#E24B4A;}
+  .mon .day-chip{background:#ddeeff;color:#1a5a9a;} .mon .card-title{color:#1a5a9a;} .mon .rest-pill-val{background:#ddeeff;color:#1a5a9a;} .mon .card-prog-fill{background:#378ADD;} .mon .dot.filled{background:#378ADD;} .mon .ex-item.done{border-color:#b0d0f0;} .mon .ex-item.done .ex-label{color:#378ADD;} .mon .done-check{color:#378ADD;}
+  .tue .day-chip{background:#d0f0e4;color:#0e6644;} .tue .card-title{color:#0e6644;} .tue .rest-pill-val{background:#d0f0e4;color:#0e6644;} .tue .card-prog-fill{background:#1D9E75;} .tue .dot.filled{background:#1D9E75;} .tue .ex-item.done{border-color:#90d8b8;} .tue .ex-item.done .ex-label{color:#1D9E75;} .tue .done-check{color:#1D9E75;}
+  .wed .day-chip{background:#eae8ff;color:#4a42a0;} .wed .card-title{color:#4a42a0;} .wed .rest-pill-val{background:#eae8ff;color:#4a42a0;} .wed .card-prog-fill{background:#7F77DD;} .wed .dot.filled{background:#7F77DD;} .wed .ex-item.done{border-color:#c0bcf0;} .wed .ex-item.done .ex-label{color:#7F77DD;} .wed .done-check{color:#7F77DD;}
+  .thu .day-chip{background:#fff0cc;color:#8a5e00;} .thu .card-title{color:#8a5e00;} .thu .rest-pill-val{background:#fff0cc;color:#8a5e00;} .thu .card-prog-fill{background:#EF9F27;} .thu .dot.filled{background:#EF9F27;} .thu .ex-item.done{border-color:#f0cc80;} .thu .ex-item.done .ex-label{color:#EF9F27;} .thu .done-check{color:#EF9F27;}
+  .fri .day-chip{background:#ffe0e0;color:#8a2020;} .fri .card-title{color:#8a2020;} .fri .rest-pill-val{background:#ffe0e0;color:#8a2020;} .fri .card-prog-fill{background:#E24B4A;} .fri .dot.filled{background:#E24B4A;} .fri .ex-item.done{border-color:#f0a0a0;} .fri .ex-item.done .ex-label{color:#E24B4A;} .fri .done-check{color:#E24B4A;}
+
+  /* 다크모드 컬러 오버라이드 */
+  [data-theme="dark"] .mon .day-chip{background:#0c1e30;color:#4e96d8;} [data-theme="dark"] .mon .card-title{color:#4e96d8;} [data-theme="dark"] .mon .rest-pill-val{background:#0c1e30;color:#4e96d8;} [data-theme="dark"] .mon .ex-item.done{border-color:#162840;} [data-theme="dark"] .mon .ex-item.done .ex-label{color:#4e96d8;}
+  [data-theme="dark"] .tue .day-chip{background:#0a1e16;color:#3aaa80;} [data-theme="dark"] .tue .card-title{color:#3aaa80;} [data-theme="dark"] .tue .rest-pill-val{background:#0a1e16;color:#3aaa80;} [data-theme="dark"] .tue .ex-item.done{border-color:#143428;} [data-theme="dark"] .tue .ex-item.done .ex-label{color:#3aaa80;}
+  [data-theme="dark"] .wed .day-chip{background:#141230;color:#8c84e0;} [data-theme="dark"] .wed .card-title{color:#8c84e0;} [data-theme="dark"] .wed .rest-pill-val{background:#141230;color:#8c84e0;} [data-theme="dark"] .wed .ex-item.done{border-color:#201e48;} [data-theme="dark"] .wed .ex-item.done .ex-label{color:#8c84e0;}
+  [data-theme="dark"] .thu .day-chip{background:#201600;color:#d99524;} [data-theme="dark"] .thu .card-title{color:#d99524;} [data-theme="dark"] .thu .rest-pill-val{background:#201600;color:#d99524;} [data-theme="dark"] .thu .ex-item.done{border-color:#362600;} [data-theme="dark"] .thu .ex-item.done .ex-label{color:#d99524;}
+  [data-theme="dark"] .fri .day-chip{background:#200c0c;color:#d44f4f;} [data-theme="dark"] .fri .card-title{color:#d44f4f;} [data-theme="dark"] .fri .rest-pill-val{background:#200c0c;color:#d44f4f;} [data-theme="dark"] .fri .ex-item.done{border-color:#341414;} [data-theme="dark"] .fri .ex-item.done .ex-label{color:#d44f4f;}
 
   /* ── 모달 ── */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.82); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center; }
   .modal-overlay.active { display: flex; }
-  .modal { background: #16161c; border: 1px solid #242430; border-radius: 20px; padding: 28px 22px 22px; width: 88%; max-width: 310px; text-align: center; }
-  .modal-name { font-size: 12px; color: #444; margin-bottom: 4px; }
-  .modal-set { font-size: 16px; font-weight: 700; color: #e0e0e0; margin-bottom: 4px; }
-  .modal-complete { font-size: 12px; font-weight: 700; color: #3aaa80; display: none; margin-bottom: 12px; }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 22px 22px; width: 88%; max-width: 310px; text-align: center; transition: background 0.3s; }
+  .modal-name { font-size: 12px; color: var(--text3); margin-bottom: 4px; }
+  .modal-set { font-size: 16px; font-weight: 700; color: var(--text1); margin-bottom: 4px; }
+  .modal-complete { font-size: 12px; font-weight: 700; color: #1D9E75; display: none; margin-bottom: 12px; }
 
   .ring-wrap { position: relative; width: 156px; height: 156px; margin: 14px auto 18px; }
   .ring-wrap svg { transform: rotate(-90deg); }
-  .ring-bg { fill: none; stroke: #22222a; stroke-width: 7; }
+  .ring-bg { fill: none; stroke: var(--border2); stroke-width: 7; }
   .ring-fg { fill: none; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
   .ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .ring-sec { font-size: 46px; font-weight: 700; line-height: 1; color: #f0f0f0; }
-  .ring-unit { font-size: 11px; color: #3a3a44; margin-top: 5px; }
+  .ring-sec { font-size: 46px; font-weight: 700; line-height: 1; color: var(--text1); }
+  .ring-unit { font-size: 11px; color: var(--text3); margin-top: 5px; }
 
   .modal-btns { display: flex; gap: 8px; }
-  .btn-skip { flex: 1; padding: 11px; border-radius: 10px; background: #1e1e26; border: 1px solid #28282e; color: #555; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
-  .btn-skip:hover { background: #222230; }
-  .btn-ok { flex: 1; padding: 11px; border-radius: 10px; background: #0e2820; border: 1px solid #1a4030; color: #3aaa80; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
-  .btn-ok:hover { background: #122e24; }
+  .btn-skip { flex: 1; padding: 11px; border-radius: 10px; background: var(--card2); border: 1px solid var(--border); color: var(--text3); font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+  .btn-skip:hover { background: var(--card3); }
+  .btn-ok { flex: 1; padding: 11px; border-radius: 10px; background: #d0f0e4; border: 1px solid #90d8b8; color: #0e6644; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+  .btn-ok:hover { background: #b8e8d0; }
+  [data-theme="dark"] .btn-ok { background: #0e2820; border-color: #1a4030; color: #3aaa80; }
+  [data-theme="dark"] .btn-ok:hover { background: #122e24; }
 
   @media(max-width:380px){ .exercise-grid{grid-template-columns:1fr;} }
 </style>
@@ -167,11 +219,11 @@
 <body>
 
 <!-- 시작 오버레이 -->
-<div id="startOverlay" style="position:fixed;inset:0;z-index:200;background:#0c0c0e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;">
+<div id="startOverlay" style="position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;">
   <div style="font-size:40px;">🏋️</div>
-  <div style="font-size:20px;font-weight:700;color:#f0f0f0;">덤벨 홈트 루틴</div>
-  <div style="font-size:13px;color:#555;">화면을 탭해서 시작</div>
-  <div style="margin-top:8px;padding:12px 36px;background:#26262e;border:1px solid #2e2e38;border-radius:12px;font-size:14px;font-weight:700;color:#e0e0e0;">시작하기</div>
+  <div style="font-size:20px;font-weight:700;color:var(--text1);">덤벨 홈트 루틴</div>
+  <div style="font-size:13px;color:var(--text3);">화면을 탭해서 시작</div>
+  <div style="margin-top:8px;padding:12px 36px;background:#1D9E75;border-radius:12px;font-size:14px;font-weight:700;color:#fff;">시작하기</div>
 </div>
 
 <div class="header">
@@ -181,6 +233,7 @@
       <div class="header-date" id="headerDate"></div>
     </div>
     <div class="header-right">
+      <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</div>
       <div class="workout-timer" id="workoutTimer" onclick="toggleTimer()" title="탭: 시작/정지 · 길게: 초기화">
         <div class="timer-dot"></div>
         <div class="timer-val" id="timerVal">00:00</div>
@@ -359,7 +412,21 @@
   const colors = { mon:'#378ADD', tue:'#1D9E75', wed:'#7F77DD', thu:'#EF9F27', fri:'#E24B4A' };
   let currentTab = 'mon', timerInt = null, audioCtx = null;
   let workoutRunning = false, workoutSec = 0, workoutInt = null;
+  let wakeLock = null;
   const TODAY = new Date().toISOString().slice(0,10);
+
+  // ── 테마 ──
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', next);
+  }
 
   // ── 날짜 ──
   const D = new Date();
@@ -372,222 +439,164 @@
   const todayKey = dowMap[D.getDay()];
   switchTab(dayKeys.includes(todayKey) ? todayKey : 'mon');
 
-  // ── localStorage 로드 ──
-  function storageKey(tab) { return 'workout_'+TODAY+'_'+tab; }
-  function weightKey(tab) { return 'weight_'+tab; }
+  // ── localStorage ──
+  function storageKey(tab){ return 'workout_'+TODAY+'_'+tab; }
+  function weightKey(tab){ return 'weight_'+tab; }
 
   function saveState(tab) {
-    const sec = document.getElementById('sec-'+tab);
-    if (!sec) return;
-    const items = sec.querySelectorAll('.ex-item');
-    const data = [];
-    items.forEach(item => {
-      const filled = item.querySelectorAll('.dot.filled').length;
-      const weight = item.querySelector('.ex-weight-input').value;
-      data.push({ filled, weight });
+    const sec=document.getElementById('sec-'+tab); if(!sec) return;
+    const items=sec.querySelectorAll('.ex-item');
+    const data=[]; items.forEach(item=>{
+      const filled=item.querySelectorAll('.dot.filled').length;
+      const weight=item.querySelector('.ex-weight-input').value;
+      data.push({filled,weight});
     });
-    localStorage.setItem(storageKey(tab), JSON.stringify(data));
-    // 무게는 날짜 무관 저장
-    const weights = [...items].map(i => i.querySelector('.ex-weight-input').value);
-    localStorage.setItem(weightKey(tab), JSON.stringify(weights));
+    localStorage.setItem(storageKey(tab),JSON.stringify(data));
+    const weights=[...items].map(i=>i.querySelector('.ex-weight-input').value);
+    localStorage.setItem(weightKey(tab),JSON.stringify(weights));
   }
 
   function loadState(tab) {
-    const sec = document.getElementById('sec-'+tab);
-    if (!sec) return;
-    const items = sec.querySelectorAll('.ex-item');
-    // 무게 로드 (날짜 무관)
-    const wRaw = localStorage.getItem(weightKey(tab));
-    if (wRaw) {
-      const weights = JSON.parse(wRaw);
-      items.forEach((item, i) => {
-        if (weights[i]) item.querySelector('.ex-weight-input').value = weights[i];
-      });
-    }
-    // 세트 로드 (오늘 날짜)
-    const raw = localStorage.getItem(storageKey(tab));
-    if (!raw) return;
-    const data = JSON.parse(raw);
-    items.forEach((item, i) => {
-      if (!data[i]) return;
-      const dots = item.querySelectorAll('.dot');
-      const label = item.querySelector('.ex-label');
-      const n = data[i].filled;
-      dots.forEach((d, j) => { if (j < n) d.classList.add('filled'); });
-      label.textContent = n + ' / 4세트';
-      if (n === dots.length) item.classList.add('done');
+    const sec=document.getElementById('sec-'+tab); if(!sec) return;
+    const items=sec.querySelectorAll('.ex-item');
+    const wRaw=localStorage.getItem(weightKey(tab));
+    if(wRaw){const weights=JSON.parse(wRaw); items.forEach((item,i)=>{ if(weights[i]) item.querySelector('.ex-weight-input').value=weights[i]; });}
+    const raw=localStorage.getItem(storageKey(tab)); if(!raw) return;
+    const data=JSON.parse(raw);
+    items.forEach((item,i)=>{
+      if(!data[i]) return;
+      const dots=item.querySelectorAll('.dot'), label=item.querySelector('.ex-label'), n=data[i].filled;
+      dots.forEach((d,j)=>{if(j<n)d.classList.add('filled');}); label.textContent=n+' / 4세트';
+      if(n===dots.length) item.classList.add('done');
     });
   }
+  dayKeys.forEach(k=>loadState(k));
 
-  dayKeys.forEach(k => loadState(k));
-
-  // 무게 변경 시 저장
-  document.querySelectorAll('.ex-weight-input').forEach(input => {
-    input.addEventListener('change', () => {
-      const tab = dayKeys.find(k => input.closest('.day-section').classList.contains(k));
-      if (tab) saveState(tab);
+  document.querySelectorAll('.ex-weight-input').forEach(input=>{
+    input.addEventListener('change',()=>{
+      const tab=dayKeys.find(k=>input.closest('.day-section').classList.contains(k));
+      if(tab) saveState(tab);
     });
-    // 입력 클릭 시 세트 클릭 방지
-    input.addEventListener('click', e => e.stopPropagation());
-    input.addEventListener('touchend', e => e.stopPropagation());
+    input.addEventListener('click',e=>e.stopPropagation());
+    input.addEventListener('touchend',e=>e.stopPropagation());
   });
 
+  // ── Wake Lock ──
+  async function requestWakeLock() {
+    try { if('wakeLock' in navigator) wakeLock=await navigator.wakeLock.request('screen'); } catch(e){}
+  }
+  function releaseWakeLock() { if(wakeLock){wakeLock.release();wakeLock=null;} }
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&timerInt) requestWakeLock(); });
 
   // ── 전체 운동 타이머 ──
-  // 타이머 길게 누르기 감지
-  let timerLongPress = null;
-  const timerEl = document.getElementById('workoutTimer');
-  timerEl.addEventListener('mousedown', () => {
-    timerLongPress = setTimeout(resetTimer, 600);
-  });
-  timerEl.addEventListener('touchstart', () => {
-    timerLongPress = setTimeout(resetTimer, 600);
-  }, {passive:true});
-  timerEl.addEventListener('mouseup', () => clearTimeout(timerLongPress));
-  timerEl.addEventListener('touchend', () => clearTimeout(timerLongPress));
-  timerEl.addEventListener('mouseleave', () => clearTimeout(timerLongPress));
+  let timerLongPress=null;
+  const timerEl=document.getElementById('workoutTimer');
+  timerEl.addEventListener('mousedown',()=>{ timerLongPress=setTimeout(resetTimer,600); });
+  timerEl.addEventListener('touchstart',()=>{ timerLongPress=setTimeout(resetTimer,600); },{passive:true});
+  timerEl.addEventListener('mouseup',()=>clearTimeout(timerLongPress));
+  timerEl.addEventListener('touchend',()=>clearTimeout(timerLongPress));
+  timerEl.addEventListener('mouseleave',()=>clearTimeout(timerLongPress));
 
   function resetTimer() {
-    workoutRunning = false;
-    clearInterval(workoutInt);
-    workoutSec = 0;
-    document.getElementById('timerVal').textContent = '00:00';
+    workoutRunning=false; clearInterval(workoutInt); workoutSec=0;
+    document.getElementById('timerVal').textContent='00:00';
     document.getElementById('workoutTimer').classList.remove('running');
-    // 짧은 진동 피드백
-    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+    if(navigator.vibrate) navigator.vibrate([50,30,50]);
   }
-
   function toggleTimer() {
-    if (!workoutRunning) {
-      workoutRunning = true;
+    if(!workoutRunning){
+      workoutRunning=true;
       document.getElementById('workoutTimer').classList.add('running');
-      workoutInt = setInterval(() => {
+      workoutInt=setInterval(()=>{
         workoutSec++;
-        const m = String(Math.floor(workoutSec/60)).padStart(2,'0');
-        const s = String(workoutSec%60).padStart(2,'0');
-        document.getElementById('timerVal').textContent = m+':'+s;
-      }, 1000);
+        const m=String(Math.floor(workoutSec/60)).padStart(2,'0');
+        const s=String(workoutSec%60).padStart(2,'0');
+        document.getElementById('timerVal').textContent=m+':'+s;
+      },1000);
     } else {
-      workoutRunning = false;
-      clearInterval(workoutInt);
+      workoutRunning=false; clearInterval(workoutInt);
       document.getElementById('workoutTimer').classList.remove('running');
     }
   }
 
   // ── 탭 전환 ──
   function switchTab(key) {
-    currentTab = key;
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.day-section').forEach(s => s.classList.remove('active'));
-    const t = document.querySelector('.tab.'+key);
-    const s = document.getElementById('sec-'+key);
-    if (t) t.classList.add('active');
-    if (s) s.classList.add('active');
+    currentTab=key;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.day-section').forEach(s=>s.classList.remove('active'));
+    const t=document.querySelector('.tab.'+key), s=document.getElementById('sec-'+key);
+    if(t) t.classList.add('active'); if(s) s.classList.add('active');
     updateProgress();
   }
 
   // ── 진행률 ──
   function updateProgress() {
-    const sec = document.getElementById('sec-'+currentTab);
-    if (!sec || !dayKeys.includes(currentTab)) return;
-    let total=0, filled=0;
-    sec.querySelectorAll('.ex-item').forEach(item => {
-      total += item.querySelectorAll('.dot').length;
-      filled += item.querySelectorAll('.dot.filled').length;
+    const sec=document.getElementById('sec-'+currentTab);
+    if(!sec||!dayKeys.includes(currentTab)) return;
+    let total=0,filled=0;
+    sec.querySelectorAll('.ex-item').forEach(item=>{
+      total+=item.querySelectorAll('.dot').length;
+      filled+=item.querySelectorAll('.dot.filled').length;
     });
-    const pct = total>0 ? Math.round(filled/total*100) : 0;
-    const color = colors[currentTab];
-    document.getElementById('progFill').style.width = pct+'%';
-    document.getElementById('progFill').style.background = color;
-    document.getElementById('progPct').textContent = pct+'%';
-    const cpFill = document.getElementById('cp-'+currentTab);
-    const cpLabel = document.getElementById('cpl-'+currentTab);
-    if (cpFill) { cpFill.style.width=pct+'%'; cpFill.style.background=color; }
-    if (cpLabel) cpLabel.textContent = filled+' / '+total+' 세트';
+    const pct=total>0?Math.round(filled/total*100):0;
+    const color=colors[currentTab];
+    document.getElementById('progFill').style.width=pct+'%';
+    document.getElementById('progFill').style.background=color;
+    document.getElementById('progPct').textContent=pct+'%';
+    const cpFill=document.getElementById('cp-'+currentTab);
+    const cpLabel=document.getElementById('cpl-'+currentTab);
+    if(cpFill){cpFill.style.width=pct+'%'; cpFill.style.background=color;}
+    if(cpLabel) cpLabel.textContent=filled+' / '+total+' 세트';
     updateWeekCount();
   }
 
   function updateWeekCount() {
     let count=0;
-    dayKeys.forEach(k => {
-      const sec=document.getElementById('sec-'+k);
-      if (!sec) return;
+    dayKeys.forEach(k=>{
+      const sec=document.getElementById('sec-'+k); if(!sec) return;
       const dots=sec.querySelectorAll('.dot'), filled=sec.querySelectorAll('.dot.filled');
-      const done = dots.length>0 && dots.length===filled.length;
-      if (done) count++;
+      const done=dots.length>0&&dots.length===filled.length;
+      if(done) count++;
       const tab=document.querySelector('.tab.'+k);
-      if (tab) { done ? tab.classList.add('done-tab') : tab.classList.remove('done-tab'); }
+      if(tab){done?tab.classList.add('done-tab'):tab.classList.remove('done-tab');}
     });
-    document.getElementById('weekCount').textContent = count;
+    document.getElementById('weekCount').textContent=count;
   }
 
   // ── 세트 클릭 ──
   function nextSet(el) {
-    const dots = el.querySelectorAll('.dot');
-    const label = el.querySelector('.ex-label');
-    const filled = el.querySelectorAll('.dot.filled').length;
-    const total = dots.length;
-    const sec = el.closest('.day-section');
-    const rest = parseInt(sec.dataset.rest)||90;
-    const dk = dayKeys.find(k=>sec.classList.contains(k));
-    const color = colors[dk]||'#555';
-
-    if (filled>=total) {
-      dots.forEach(d=>d.classList.remove('filled'));
-      label.textContent = '0 / '+total+'세트';
-      el.classList.remove('done');
-      saveState(dk); updateProgress(); return;
+    const dots=el.querySelectorAll('.dot'), label=el.querySelector('.ex-label');
+    const filled=el.querySelectorAll('.dot.filled').length, total=dots.length;
+    const sec=el.closest('.day-section');
+    const rest=parseInt(sec.dataset.rest)||90;
+    const dk=dayKeys.find(k=>sec.classList.contains(k));
+    const color=colors[dk]||'#555';
+    if(filled>=total){
+      dots.forEach(d=>d.classList.remove('filled')); label.textContent='0 / '+total+'세트';
+      el.classList.remove('done'); saveState(dk); updateProgress(); return;
     }
-    dots[filled].classList.add('filled');
-    const n = filled+1;
-    label.textContent = n+' / '+total+'세트';
-    if (n===total) el.classList.add('done');
-    if (navigator.vibrate) navigator.vibrate(n===total?[80,40,160]:[50]);
+    dots[filled].classList.add('filled'); const n=filled+1;
+    label.textContent=n+' / '+total+'세트';
+    if(n===total) el.classList.add('done');
+    if(navigator.vibrate) navigator.vibrate(n===total?[80,40,160]:[50]);
     saveState(dk);
-    openModal(el.querySelector('.ex-name').textContent, n, total, rest, color, n===total);
+    openModal(el.querySelector('.ex-name').textContent,n,total,rest,color,n===total);
     updateProgress();
   }
 
   // ── 오디오 ──
-  function getAudio() {
-    if (!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    return audioCtx;
-  }
-  function beep(f,d,v) {
-    const ctx=getAudio(),o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.frequency.value=f;g.gain.setValueAtTime(v,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+d);
-    o.start();o.stop(ctx.currentTime+d);
-  }
+  function getAudio(){if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)(); return audioCtx;}
+  function beep(f,d,v){const ctx=getAudio(),o=ctx.createOscillator(),g=ctx.createGain(); o.connect(g);g.connect(ctx.destination); o.frequency.value=f;g.gain.setValueAtTime(v,ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+d); o.start();o.stop(ctx.currentTime+d);}
   function playTick(){beep(600,0.18,1.0);}
   function playDone(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,0.35,1.0),i*130));}
 
-  // ── Wake Lock ──
-  let wakeLock = null;
-  async function requestWakeLock() {
-    try {
-      if ('wakeLock' in navigator) {
-        wakeLock = await navigator.wakeLock.request('screen');
-      }
-    } catch(e) {}
-  }
-  function releaseWakeLock() {
-    if (wakeLock) { wakeLock.release(); wakeLock = null; }
-  }
-  // 탭 전환 시 wake lock 재요청
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible' && timerInt) requestWakeLock();
-  });
-
   // ── 모달 ──
-  function openModal(name,setNum,total,rest,color,allDone) {
-    clearInterval(timerInt);
-    requestWakeLock();
-    document.getElementById('mName').textContent = name;
-    document.getElementById('mSet').textContent = allDone?'마지막 세트 완료!':setNum+'세트 완료!';
-    document.getElementById('mComplete').style.display = allDone?'block':'none';
-    document.getElementById('ringSec').textContent = rest;
+  function openModal(name,setNum,total,rest,color,allDone){
+    clearInterval(timerInt); requestWakeLock();
+    document.getElementById('mName').textContent=name;
+    document.getElementById('mSet').textContent=allDone?'마지막 세트 완료!':setNum+'세트 완료!';
+    document.getElementById('mComplete').style.display=allDone?'block':'none';
+    document.getElementById('ringSec').textContent=rest;
     const fg=document.getElementById('ringFg');
     fg.style.strokeDasharray=CIRC; fg.style.strokeDashoffset=0;
     fg.style.stroke=color; fg.style.transition='none';
@@ -595,27 +604,17 @@
     setTimeout(()=>{fg.style.transition='stroke-dashoffset 1s linear';},50);
     let elapsed=0;
     timerInt=setInterval(()=>{
-      elapsed++;
-      const rem=rest-elapsed;
+      elapsed++; const rem=rest-elapsed;
       document.getElementById('ringSec').textContent=rem;
       fg.style.strokeDashoffset=(elapsed/rest)*CIRC;
       if(rem<=3&&rem>0){playTick();if(navigator.vibrate)navigator.vibrate(25);}
-      if(rem<=0){
-        clearInterval(timerInt);
-        document.getElementById('ringSec').textContent='0';
-        playDone();if(navigator.vibrate)navigator.vibrate([180,80,180]);
-        setTimeout(closeModal,1300);
-      }
+      if(rem<=0){clearInterval(timerInt); document.getElementById('ringSec').textContent='0'; playDone(); if(navigator.vibrate)navigator.vibrate([180,80,180]); setTimeout(closeModal,1300);}
     },1000);
   }
 
-  function closeModal(){
-    clearInterval(timerInt);
-    releaseWakeLock();
-    document.getElementById('modal').classList.remove('active');
-  }
+  function closeModal(){clearInterval(timerInt); releaseWakeLock(); document.getElementById('modal').classList.remove('active');}
 
-  function resetCard(btn) {
+  function resetCard(btn){
     const card=btn.closest('.day-card');
     const dk=dayKeys.find(k=>card.classList.contains(k));
     card.querySelectorAll('.ex-item').forEach(item=>{
@@ -623,26 +622,21 @@
       item.querySelector('.ex-label').textContent='0 / 4세트';
       item.classList.remove('done');
     });
-    if(dk) saveState(dk);
-    updateProgress();
+    if(dk) saveState(dk); updateProgress();
   }
 
-  document.getElementById('modal').addEventListener('click',e=>{
-    if(e.target===document.getElementById('modal'))closeModal();
-  });
+  document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
 
   // ── 시작 오버레이 ──
   const overlay=document.getElementById('startOverlay');
   overlay.addEventListener('click',()=>{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const buf=ctx.createBuffer(1,1,22050);
-    const src=ctx.createBufferSource();
-    src.buffer=buf;src.connect(ctx.destination);src.start();
+    const buf=ctx.createBuffer(1,1,22050), src=ctx.createBufferSource();
+    src.buffer=buf; src.connect(ctx.destination); src.start();
     audioCtx=ctx;
-    overlay.style.opacity='0';overlay.style.transition='opacity 0.3s';
+    overlay.style.opacity='0'; overlay.style.transition='opacity 0.3s';
     setTimeout(()=>overlay.remove(),300);
-    // 자동으로 운동 타이머 시작
-    setTimeout(toggleTimer, 400);
+    setTimeout(toggleTimer,400);
   });
 
   updateProgress();
